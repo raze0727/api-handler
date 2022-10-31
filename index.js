@@ -10,6 +10,7 @@ const config = {
 }
 
 async function load() {
+    if (!config.port || isNaN(config.port)) return console.log(chalk.red('Invalid port input.'))
     app.listen(config.port, () => console.log(chalk.blue(`Listening on port: ${config.port}`)));
     console.log(chalk.green('Loaded endpoints:'));
     fs.readdirSync('./endpoints').forEach(dir => {
