@@ -9,6 +9,11 @@ async function load() {
     console.log(`Listening on Port ${config.port}`)
   );
 
+  //Database
+  if (config.uri)
+    connect(config.uri, () => console.log('Connected to database'));
+  else console.warn('No URI was provided.');
+
   //Load Endpoints
   readdirSync('./endpoints').forEach((category) => {
     readdirSync(`./endpoints/${category}`).forEach((endpoint) => {
