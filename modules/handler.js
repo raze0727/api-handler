@@ -1,18 +1,19 @@
 const { readdirSync } = require('fs');
 const express = require('express');
+const { connect } = require('mongoose');
 const config = require('../config.json');
 
 async function load() {
   //Express
   const app = express();
+  app.use(express.json());
   app.listen(config.port, () =>
     console.log(`Listening on Port ${config.port}`)
   );
 
   //Database
   if (config.uri)
-    connect(config.uri, () => console.log('Connected to database'));
-  else console.warn('No URI was provided.');
+    connect(config.uri).then(console.log('Connected to database'));
 
   //Load Endpoints
   readdirSync('./endpoints').forEach((category) => {
